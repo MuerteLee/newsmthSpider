@@ -12,7 +12,7 @@ def run_function():
   
 def timer1():  
     while True:  
-        time.sleep(10)  
+        time.sleep(500)  
         run_function()  
   
 if __name__ == "__main__":  

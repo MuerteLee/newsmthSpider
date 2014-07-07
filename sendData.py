@@ -15,7 +15,8 @@ class sqliteOS3(object):
         if not os.path.isfile(dataBasePath):
            conn = sqlite3.connect(dataBasePath) 
            cu = conn.cursor()
-           cu.execute("create table newsmth(id integer primary key autoincrement, urlID integer, nameTitle varchar(128) UNIQUE, postTime varchar(128) UNIQUE, sendKey interger)")
+#           cu.execute("create table newsmth(id integer primary key autoincrement, urlID integer, nameTitle varchar(128) UNIQUE, postTime varchar(128) UNIQUE, sendKey interger)")
+           cu.execute("create table newsmth(id integer primary key autoincrement, urlID integer, nameTitle varchar(128), postTime varchar(128), sendKey interger)")
            conn.close()  
 
         self.dataBasePath = dataBasePath;
@@ -34,7 +35,7 @@ class sqliteOS3(object):
         #conn = sqlite3.connect(self.dataBasePath);
         cu = conn.cursor(); 
         cmdLineInsert = "insert into newsmth values((select max(ID) from newsmth)+1," + self.urlID + "," + self.nameTitle + "," + self.postTime + "," + self.sendKey + ")"
-#        print(cmdLineInsert)
+        print(cmdLineInsert)
         cu.execute(cmdLineInsert)
         conn.commit()
 
@@ -214,6 +215,7 @@ class sendMsg:
         return post.sqlUrlID()
 
 global URLIDDataWebdriver
+
 class Untitled(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
