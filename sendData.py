@@ -111,6 +111,15 @@ class sqliteOS3(object):
             conn.rollback()
             return False;
 
+    def deleteInvalidURLID(self, conn, urlID):
+        cur = conn.cursor()
+        try:
+            cur.execute("delete from newsmth where urlID=%d" %urlID)
+            conn.commit()
+        except sqlite3.Error as e:
+            print("ERROR: deleteInvalidURLID error, please check your param! \n")
+            conn.rollback()
+            return False;
 pUrlValue = 1
 class parseUrl(sqliteOS3):
     def __init__(self, URL, dataBasePath):
@@ -189,6 +198,10 @@ class parseURL:
                     return (contextURL.split('--<br ')[0])
                 elif contextURL.find('-- <br ') != -1: 
                     return (contextURL.split('-- <br ')[0])
+            else:
+                sql = sendMsg().sqlURLID()
+                conn = sql.connectData()
+                sql.updateSendMailKeyValue(conn, self.urlid);
         except Exception as e:
             print("Open url:%s is error, please check the URL!~\n" %self.URL)
             return False
@@ -382,8 +395,10 @@ if __name__ == "__main__":
             parseURLWeb = parseURL(URLID)
             if parseURLWeb.parseContext():
                 (titleName,urlContxt)=parseURLWeb.parseContext()
+                print("sendMail:%s" %titleName)
                 sendmail = sendMail(titleName, urlContxt, mList.getmailList())
                 sendmail.sendmail();
+                print("start update sendMailKey value")
                 sql.updateSendMailKeyValue(conn,URLID);
 
     weekday = datetime.datetime.now().weekday() 

@@ -28,12 +28,14 @@ class sendMail:
             if len(self.To) > 0:
                try:
                     for i in range(0, len(self.To)):
+                        print("Start Send Mail: %s" %self.To[i])
                         conn.sendmail(self.me, self.To[i], self.msg.as_string())
                         time.sleep(5)
+                        print("Stop Send Mail: %s\n" %self.To[i])
                finally:
                     conn.close()
-
         except Exception as exc:
+            print("ERROR: Please check you login file!\n")
             self.logger.error("ERROR!!!")
             self.logger.critical(exc)
             sys.exit("Mail failed: {}".format(exc))
