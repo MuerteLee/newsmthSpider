@@ -255,28 +255,39 @@ class Untitled(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
-        self.base_url = "http://www.newsmth.net"
+#        self.base_url = "http://www.newsmth.net"
+        self.base_url = "http://m.newsmth.net"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_untitled(self):
         driver = self.driver
-        driver.get("http://www.newsmth.net")
-        driver.find_element_by_id("id").clear()
-        print(getEnv("newsmthID").getEnv())
-        driver.find_element_by_id("id").send_keys(getEnv("newsmthID").getEnv())
-        driver.find_element_by_id("pwd").clear()
-        print(getEnv("newsmthPW").getEnv())
-        driver.find_element_by_id("pwd").send_keys(getEnv("newsmthPW").getEnv())
-        driver.find_element_by_id("b_login").click()
+#        driver.get("http://www.newsmth.net")
+#        driver.find_element_by_id("id").clear()
+#        print(getEnv("newsmthID").getEnv())
+#        driver.find_element_by_id("id").send_keys(getEnv("newsmthID").getEnv())
+#        driver.find_element_by_id("pwd").clear()
+#        print(getEnv("newsmthPW").getEnv())
+#        driver.find_element_by_id("pwd").send_keys(getEnv("newsmthPW").getEnv())
+#        driver.find_element_by_id("b_login").click()
+
+        driver.get("http://m.newsmth.net")
+        driver.find_element_by_name("id").clear()
+        driver.find_element_by_name("id").send_keys(getEnv("newsmthID").getEnv())
+        driver.find_element_by_name("passwd").clear()
+        driver.find_element_by_name("passwd").send_keys(getEnv("newsmthPW").getEnv())
+        driver.find_element_by_css_selector("input.btn").click()
+#        driver.find_element_by_name("b_login").click()
         time.sleep(3)
 
+        sql = sendMsg().sqlURLID()
+        conn = sql.connectData()
         for i in range(0, len(URLIDDataWebdriver)):
             URLID = URLIDDataWebdriver[i][0]
             parseURLWeb = parseURL(URLID)
             if parseURLWeb.parseContext():
                 (titleName,urlContxt)=parseURLWeb.parseContext()
-                driver.get(self.base_url + "/nForum/article/Test/post")
+                driver.get("http://www.newsmth.net" + "/nForum/article/Test/post")
 #            driver.get(self.base_url + "/nForum/article/SoftwareTesting/post")
                 driver.find_element_by_id("post_subject").clear()
                 driver.find_element_by_id("post_subject").send_keys(titleName)
@@ -285,8 +296,9 @@ class Untitled(unittest.TestCase):
                 driver.find_element_by_id("post_content").send_keys(urlContxt)
                 driver.find_element_by_css_selector("input.button").click()
                 time.sleep(20)
+                sql.updateSendKeyValue(conn,URLID);
 
-        driver.find_element_by_id("u_login_out").click()
+#        driver.find_element_by_id("u_login_out").click()
     
     def is_element_present(self, how, what):
         try: 
@@ -375,4 +387,3 @@ if __name__ == "__main__":
     if datetime.datetime.now().weekday() == 2:
         if len(URLIDDataWebdriver) > 0:
             unittest.main()
-#            sql.updateSendKeyValue(conn,URLID);
