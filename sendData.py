@@ -384,6 +384,7 @@ if __name__ == "__main__":
                 sendmail.sendmail();
                 sql.updateSendMailKeyValue(conn,URLID);
 
-    if datetime.datetime.now().weekday() == 2:
+    weekday = datetime.datetime.now().weekday() 
+    if weekday== 2 or weekday == 6:
         if len(URLIDDataWebdriver) > 0:
             unittest.main()
