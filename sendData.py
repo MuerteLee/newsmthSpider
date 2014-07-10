@@ -178,15 +178,17 @@ class parseURL:
             print("Open url:%s is error, please check the URL!~\n" %URL)
 
     def parseURL(self,):
+        keyUrl ="\u6307\u5B9A\u7684\u6587\u7AE0\u4E0D\u5B58\u5728\u6216\u94FE\u63A5\u9519\u8BEF"
         try:
-            if self.mainUrlData.find('<p>') == -1:
-                print("\n\nThe URL maybe not exist, please check %s \n" %self.URL)
-                return False 
-            contextURL = self.mainUrlData.split('<p>')[1].split('FROM')[0].replace('&nbsp;','')
-            if contextURL.find('--<br ') != -1:
-                return (contextURL.split('--<br ')[0])
-            elif contextURL.find('-- <br ') != -1: 
-                return (contextURL.split('-- <br ')[0])
+            if (self.mainUrlData.find(keyUrl)) == -1:
+                if self.mainUrlData.find('<p>') == -1:
+                    print("\n\nThe URL maybe not exist, please check %s \n" %self.URL)
+                    return False 
+                contextURL = self.mainUrlData.split('<p>')[1].split('FROM')[0].replace('&nbsp;','')
+                if contextURL.find('--<br ') != -1:
+                    return (contextURL.split('--<br ')[0])
+                elif contextURL.find('-- <br ') != -1: 
+                    return (contextURL.split('-- <br ')[0])
         except Exception as e:
             print("Open url:%s is error, please check the URL!~\n" %self.URL)
             return False
