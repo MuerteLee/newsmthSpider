@@ -2,13 +2,13 @@ newsmthSpider
 =============
 This script include two function:
 First: 
-    Spider "Career upgrade " tester postion data to software test
+    Spider "Career upgrade"（http://www.newsmth.net/nForum/#!board/Career_Upgrade） tester postion data to software test（http://www.newsmth.net/nForum/#!board/SoftwareTesting）
 
 Second:
     Send test postion data to mail from "configure/mailList.txt" list.
 
 newsmthSpider/
-├── configure
+├── configure \n
 │   ├── login.txt
 │   └── mailList.txt
 ├── __init__.py
