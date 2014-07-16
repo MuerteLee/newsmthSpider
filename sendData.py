@@ -268,7 +268,8 @@ global URLIDDataWebdriver
 
 class Untitled(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
+#        self.driver = webdriver.Firefox()
+        self.driver = webdriver.PhantomJS(executable_path='/usr/bin/phantomjs')
         self.driver.implicitly_wait(30)
 #        self.base_url = "http://www.newsmth.net"
         self.base_url = "http://m.newsmth.net"
@@ -302,8 +303,8 @@ class Untitled(unittest.TestCase):
             parseURLWeb = parseURL(URLID)
             if parseURLWeb.parseContext():
                 (titleName,urlContxt)=parseURLWeb.parseContext()
-                driver.get("http://www.newsmth.net" + "/nForum/article/Test/post")
-#            driver.get(self.base_url + "/nForum/article/SoftwareTesting/post")
+#                driver.get("http://www.newsmth.net" + "/nForum/article/Test/post")
+                driver.get("http://www.newsmth.net" + "/nForum/article/SoftwareTesting/post")
                 driver.find_element_by_id("post_subject").clear()
                 driver.find_element_by_id("post_subject").send_keys(titleName)
                 driver.find_element_by_id("post_content").click()
