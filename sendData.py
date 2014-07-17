@@ -403,6 +403,6 @@ if __name__ == "__main__":
                 sql.updateSendMailKeyValue(conn,URLID);
 
     weekday = datetime.datetime.now().weekday() 
-    if weekday== 2 or weekday == 6:
+    if weekday == 6:
         if len(URLIDDataWebdriver) > 0:
             unittest.main()
