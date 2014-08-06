@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
-from updateTopicD import *
+from getUpdateData import *
 from unit.getEnv import getEnv
 from sendData import setEnv
 
