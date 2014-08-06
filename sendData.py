@@ -304,6 +304,7 @@ class Untitled(unittest.TestCase):
             if parseURLWeb.parseContext():
                 (titleName,urlContxt)=parseURLWeb.parseContext()
 #                driver.get("http://www.newsmth.net" + "/nForum/article/Test/post")
+                print(titleName)
                 driver.get("http://www.newsmth.net" + "/nForum/article/SoftwareTesting/post")
                 driver.find_element_by_id("post_subject").clear()
                 driver.find_element_by_id("post_subject").send_keys(titleName)
@@ -403,6 +404,6 @@ if __name__ == "__main__":
                 sql.updateSendMailKeyValue(conn,URLID);
 
     weekday = datetime.datetime.now().weekday() 
-    if weekday == 6:
-        if len(URLIDDataWebdriver) > 0:
-            unittest.main()
+
+    if len(URLIDDataWebdriver) > 0:
+        unittest.main()
