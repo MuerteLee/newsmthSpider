@@ -12,6 +12,7 @@ class sqliteOS3(object):
            cu.execute("create table newsmth(id integer primary key autoincrement, urlID integer, nameTitle varchar(128) UNIQUE, postTime varchar(128) UNIQUE, sendKey interger)")
            conn.close()  
 
+
         self.dataBasePath = dataBasePath;
 #        print(dataBasePath)
 
@@ -197,3 +198,16 @@ class sendMsg:
 
         URLIDDICT = postMsg(dataBasePath)
         return URLIDDICT
+
+if __name__ == '__main__':
+    urlDefault = 1
+    dataBasePath = "/home/muerte/newsmth.db"
+    while(1):
+        url="http://m.newsmth.net/board/Career_Upgrade?p="+str(urlDefault)+"?ajax"  
+        print(url)
+        parseurl = parseUrl(url, dataBasePath)
+        parseurl.getData()
+        if pUrlValue > urlDefault:
+            urlDefault = pUrlValue;
+        else:
+            break;

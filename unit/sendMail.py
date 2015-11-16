@@ -6,6 +6,9 @@ from email.mime.text import MIMEText
 import os,time
 from unit.getEnv import getEnv
 
+from email.mime.text import MIMEText
+import smtplib
+
 class sendMail:
     def __init__(self, mailSubjectName, mailMessage, mailList):
         super().__init__();
@@ -18,22 +21,29 @@ class sendMail:
 #        print(self.To)
         self.msg = msg
 
+    def sendMailBy163(self,):
+        conn = SMTP('smtp.163.com')
+#        conn.set_debuglevel(True)
+#        print(getEnv("mailAddr").getEnv(), getEnv("mailPW").getEnv())
+        conn.login(getEnv("mailAddr").getEnv(), getEnv("mailPW").getEnv())
+        return conn 
+
+
     def send_confirmation(self,):
         try:
-            conn = SMTP('smtp.163.com')
-#            conn.set_debuglevel(True)
-#            print(getEnv("mailAddr").getEnv(), getEnv("mailPW").getEnv())
-            conn.login(getEnv("mailAddr").getEnv(), getEnv("mailPW").getEnv())
+            smtp_server = 'smtp.qq.com'
+            server = smtplib.SMTP(smtp_server, 25)
+            server.login(getEnv("mailAddr").getEnv(), getEnv("mailPW").getEnv())
 
             if len(self.To) > 0:
-               try:
-                    for i in range(0, len(self.To)):
-                        print("Start Send Mail: %s" %self.To[i])
-                        conn.sendmail(self.me, self.To[i], self.msg.as_string())
-                        time.sleep(5)
-                        print("Stop Send Mail: %s\n" %self.To[i])
-               finally:
-                    conn.close()
+                try:
+                     for i in range(0, len(self.To)):
+                         print("Start Send Mail: %s" %self.To[i])
+                         server.sendmail(self.me, self.To[i], self.msg.as_string())
+                         time.sleep(5)
+                         print("Stop Send Mail: %s\n" %self.To[i])
+                finally:
+                    server.quit()
         except Exception as exc:
             print("ERROR: Please check you login file!\n")
             self.logger.error("ERROR!!!")
